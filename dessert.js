@@ -100,6 +100,7 @@ products.forEach(
     `;
   }
 );
+
 class ShoppingCart {
   constructor() {
     this.items = [];
@@ -109,10 +110,18 @@ class ShoppingCart {
 
   addItem(id, products) {
     const product = products.find((item) => item.id === id);
-const { name, price } = product;
 
-// You can then use name and price like this:
-console.log(name);
-console.log(price);
-}
+    const { name, price } = product;
+    this.items.push(product);
+
+    const totalCountPerProduct = {};
+    this.items.forEach((dessert) => {
+      totalCountPerProduct[dessert.id] = (totalCountPerProduct[dessert.id] || 0) + 1;
+    })
+
+    const currentProductCount = totalCountPerProduct[product.id];
+    const currentProductCountSpan = document.getElementById(`product-count-for-id${id}`);
+    if( currentProductCount > 1 ? undefined : undefined);
+
 };
+}
