@@ -110,7 +110,6 @@ class ShoppingCart {
 
   addItem(id, products) {
     const product = products.find((item) => item.id === id);
-
     const { name, price } = product;
     this.items.push(product);
 
@@ -121,7 +120,31 @@ class ShoppingCart {
 
     const currentProductCount = totalCountPerProduct[product.id];
     const currentProductCountSpan = document.getElementById(`product-count-for-id${id}`);
-    if( currentProductCount > 1 ? undefined : undefined);
 
+    currentProductCount > 1 
+      ? currentProductCountSpan.textContent = `${currentProductCount}x`
+      : productsContainer.innerHTML += `
+      <div id="dessert${id}" class="product">
+        <p>
+          <span class="product-count" id="product-count-for-id${id}"></span>${name}
+        </p>
+        <p>${price}</p>
+      </div>
+      `;
+  }
 };
-}
+
+const cart = new ShoppingCart();
+const addToCartBtns = document.getElementsByClassName("add-to-cart-btn");
+
+[...addToCartBtns].forEach(
+  (btn) => {
+    btn.addEventListener("click", (event) => {
+      cart.addItem(Number(event.target.id), products);
+    })
+  }
+);
+
+cartBtn.addEventListener("click", () => {
+
+});
